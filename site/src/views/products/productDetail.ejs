@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--Head-->
+    <%- include('../partials/head') %>
+<body>
+    <section id="all-container">
+        <!--Header-->
+        <%- include('../partials/header') %>
+        <!--Modal de login-->
+        <%- include('../partials/loginModal') %> 
+        <!--NavBar lateral-->
+        <%- include('../partials/navBar') %> 
+
+        <!--Contenedor-->        
+        <main class="page-container" id="page-container">  
+            <!--Barra de busqueda-->
+            <%- include('../partials/searchBar') %>  
+            
+            <!--Producto-->   
+            <div class="ch-container">
+                <div class="d-none d-lg-block c-img"> 
+                    <h1 id="multis"><%= bike.model %></h1>
+                    <% for( let i = 0; i < bike.image.length; i++ ) { %>
+                        <% if (bike.image[i].coverImage == 1) { %>
+                            <img class="multi" src="/asset/img/productos/<%= bike.image[i].name %>"alt="<%= bike.model %>">                    
+                        <% } %>
+                    <% } %>   
+                </div>  
+                    <!--fotos-->
+                    <section class="productDetail-section" id="productDetail-section">
+                        <div class="photos-box"> 
+                            <div class="bike-name" id="bike-name">
+                                <h2 class="d-none d-lg-block">Esta moto te esta esperando...</h2>
+                                <h4 class="d-lg-none"><%= bike.model %> - <%= bike.brand.name %></h4> 
+                            </div>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="photo1" role="tabpanel" aria-labelledby="home-tab">
+                                    <figure>
+                                        <img src="/asset/img/productos/<%= imagesNoCover[0].name %>" alt="">
+                                    </figure>
+                                </div>
+                                <div class="tab-pane fade" id="photo2" role="tabpanel" aria-labelledby="profile-tab">
+                                    <figure class="pre-image-figure">
+                                        <img src="/asset/img/productos/<%= imagesNoCover[1].name %>" alt="">
+                                    </figure> 
+                                </div>
+                                <div class="tab-pane fade" id="photo3" role="tabpanel" aria-labelledby="contact-tab">
+                                    <figure class="pre-image-figure">
+                                        <img src="/asset/img/productos/<%= imagesNoCover[2].name %>" alt="">
+                                    </figure>
+                                </div>
+                                <div class="tab-pane fade" id="photo4" role="tabpanel" aria-labelledby="contact-tab">
+                                    <figure class="pre-image-figure">
+                                        <img src="/asset/img/productos/<%= imagesNoCover[3].name %>" alt="">
+                                    </figure>
+                                </div>
+                            </div>
+                            <ul class="nav nav-tabs w-100 mt-1" id="myTab" role="tablist">
+                                <li class="nav-item w-25" role="presentation">
+                                    <a class="nav-link p-0 active" id="photo1-tab" data-toggle="tab" href="#photo1" role="tab" aria-controls="photo1" aria-selected="true">
+                                        <figure>
+                                            <img src="/asset/img/productos/<%= imagesNoCover[0].name %>" alt="">
+                                        </figure> 
+                                    </a>
+                                </li>
+                                <li class="nav-item w-25" role="presentation">
+                                    <a class="nav-link p-0" id="photo2-tab" data-toggle="tab" href="#photo2" role="tab" aria-controls="photo2" aria-selected="true">
+                                        <figure class="pre-image-figure">
+                                            <img src="/asset/img/productos/<%= imagesNoCover[1].name %>" alt="">
+                                        </figure> 
+                                    </a>
+                                </li>
+                                <li class="nav-item w-25" role="presentation">
+                                    <a class="nav-link p-0" id="photo3-tab" data-toggle="tab" href="#photo3" role="tab" aria-controls="photo3" aria-selected="false">
+                                        <figure class="pre-image-figure">
+                                            <img src="/asset/img/productos/<%= imagesNoCover[2].name %>" alt="">
+                                        </figure>
+                                    </a>
+                                </li>
+                                <li class="nav-item w-25" role="presentation">
+                                    <a class="nav-link p-0" id="photo4-tab" data-toggle="tab" href="#photo4" role="tab" aria-controls="photo4" aria-selected="false">
+                                        <figure class="pre-image-figure">
+                                            <img src="/asset/img/productos/<%= imagesNoCover[3].name %>" alt="">
+                                        </figure>
+                                    </a>
+                                </li>
+                            </ul>          
+                        </div> 
+                    </div>
+                    <div class="carroFuego">
+                        <a href="/productCart/<%= bike.id%>" class="icon float-right"><img src="/asset/img/productos/shopping-cart.png" alt="Agregar al carrito"></a>
+                    </div>
+                    <!--Menú acordeon-->
+                    <div class="accordion" id="accordionExample">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseprice" aria-expanded="true" aria-controls="collapseOne">
+                                        Precio
+                                    </button>
+                                </h2>
+                            </div>                            
+                            <div id="collapseprice" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                  <%= bike.coin%> <%=(bike.gross * bike.iva)/100 + bike.gross%>
+                                </div>
+                            </div>
+                            <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Descripción
+                                    </button>
+                                </h2>
+                            </div>
+                            
+                            <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <%= bike.description %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Especificaciones
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <%= bike.specification %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Ficha técnica 
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <table class="table table-sm">
+                                        <tbody>
+                                            <tr>                                                
+                                                <td>Marca</td>
+                                                <td></td>
+                                                <td class="barra"><%= bike.brand.name %></td>
+                                            </tr>
+                                            <tr>                                                
+                                                <td>Modelo</td>
+                                                <td></td>
+                                                <td class="barra" ><%= bike.model %></td>
+                                            </tr> 
+                                            <tr>                                                
+                                                <td>Color</td>
+                                                <td></td>
+                                                <td class="barra" ><%= bike.color.name %></td>
+                                            </tr>  
+                                            <tr>                                                
+                                                <td>Stock</td>
+                                                <td></td>
+                                                <td class="barra"><%= bike.stock %></td>
+                                            </tr> 
+                                            <tr>                                                
+                                                <td>Cilindrada</td>
+                                                <td></td>
+                                                <td class="barra"><%= bike.cc %></td>
+                                            </tr> 
+                                            <tr>                                                
+                                                <td>Frenos</td>
+                                                <td></td>
+                                                <td class="barra"><%= bike.brakes %></td>
+                                            </tr>                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                           </div>
+                    </section> 
+                    <!--Footer-->
+                    <%- include('../partials/footer') %>
+              
+                
+                <!--Script de boostrap-->
+                <%- include('../partials/scripts') %>
+                </body>
+                </html>
+                

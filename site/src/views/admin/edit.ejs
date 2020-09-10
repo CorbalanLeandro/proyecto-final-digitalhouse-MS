@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--Head-->
+<%- include('../partials/head') %>
+
+<body>
+    <section id="all-container">
+        <!--Header-->
+        <%- include('../partials/headerAdmin') %>
+        <!--Modal de login-->
+        <%- include('../partials/loginModal') %>
+        <!-- Solapas -->
+        <section>            
+            <div class="solapas"> 
+                <div class="titulo col-12">
+                    <h3>Editor de  Productos</h3>
+                </div>  
+                <div>
+                    <ul id="errores"> </ul>
+                </div>
+                <div>
+                    <form method="POST" action="/edit/<%= bike.id%>?_method=PUT" enctype="multipart/form-data" class="formulario">
+                        <div>                                                
+                            <!-- Botones -->   
+                            <div class="contenedor mt-1 ">            
+                                <div class="formulario">
+                                    <div class="formu">                                    
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="inputGroupSelect01">Marcas</label>
+                                            </div>
+                                            <select name="brand" class="custom-select" id="inputGroupSelect01">                                                
+                                                <option value="1" <%= bike.brand.name == "Yamaha" ? "selected" : null %> >Yamaha</option>
+                                                <option value="2" <%= bike.brand.name == "Honda" ? "selected" : null %>>Honda</option>
+                                                <option value="3" <%= bike.brand.name == "BMW" ? "selected" : null %>>BMW</option>
+                                                <option value="4" <%= bike.brand.name == "Mercedez-Benz" ? "selected" : null %>>Mercedes Benz</option>
+                                                <option value="5" <%= bike.brand.name == "Kawasaki" ? "selected" : null %>>Kawasaki</option>
+                                                <option value="6" <%= bike.brand.name == "Ducati" ? "selected" : null %>>Ducati</option>
+                                                <option value="7" <%= bike.brand.name == "KTM" ? "selected" : null %>>KTM</option>
+                                             </select>
+                                        </div>
+                                        <% if(typeof(errors) != 'undefined' && errors.model){%>
+                                            <div class="text-danger text-center">
+                                              <%= errors.model.msg %>
+                                            </div>
+                                        <%}%>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Modelo</span>
+                                            </div>
+                                            <textarea name="model" class="form-control" aria-label="With textarea"><%=bike.model%></textarea>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="inputGroupSelect01">Color</label>
+                                            </div>
+                                            <select name="color" class="custom-select" id="inputGroupSelect01">
+                                                <option <%= bike.color.name == "Rojo" ? "selected" : null %> value="1">Rojo</option>
+                                                <option <%= bike.color.name == "Negro" ? "selected" : null %> value="2">Negro</option>
+                                                <option <%= bike.color.name == "Azul" ? "selected" : null %> value="3">Azul</option>
+                                                <option <%= bike.color.name == "Gris" ? "selected" : null %> value="4">Gris</option>
+                                            </select>
+                                        </div>
+                                        <% if(typeof(errors) != 'undefined' && errors.cc){%>
+                                            <div class="text-danger text-center">
+                                              <%= errors.cc.msg %>
+                                            </div>
+                                        <%}%>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Cilindrada</span>
+                                            </div>
+                                            <input value="<%= bike.cc%>" class="form-control" type="number" name="cc" id="cilindrada">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="inputGroupSelect01">Frenos</label>
+                                            </div>
+                                            <select name="brakes" class="custom-select" id="inputGroupSelect01">
+                                                <option <%= bike.brakes == "Disco delantero" ? "selected" : null %> value="Disco delantero">Disco delantero</option>
+                                                <option <%= bike.brakes == "Disco delantero y trasero" ? "selected" : null %> value="Disco delantero y trasero">Disco delantero y trasero</option>
+                                                <option <%= bike.brakes == "Doble disco" ? "selected" : null %> value="Doble disco">Doble disco</option>                                                
+                                            </select>
+                                        </div>
+                                        <% if(typeof(errors) != 'undefined' && errors.stock){%>
+                                            <div class="text-danger text-center">
+                                              <%= errors.stock.msg %>
+                                            </div>
+                                        <%}%>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Cantidad</span>
+                                            </div>
+                                            <input value="<%= bike.stock%>" class="form-control" type="number" name="stock" id="stock">
+                                        </div>                                        
+                                        <hr>
+                                        <!-- Precio -->
+                                        <h5>Precio</h5>
+                                        <div class="flex-container">                                     
+                                            <div>   
+                                                <h6>Moneda</h6>
+                                                <div class="form-group btc">                                            
+                                                    <select name="coin" class="custom-select" id="validationCustom04" required>
+                                                        <option <%= bike.coin == "u$s" ? "selected" : null %> value="u$s">Dolar</option>
+                                                        <option <%= bike.coin == "$" ? "selected" : null %> value="$">Peso</option>
+                                                        <option <%= bike.coin == "€" ? "selected" : null %> value="€">Euro</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <% if(typeof(errors) != 'undefined' && errors.iva){%>
+                                                <div class="text-danger text-center">
+                                                  <%= errors.iva.msg %>
+                                                </div>
+                                            <%}%>
+
+                                            <div>
+                                                <h6>IVA</h6>
+                                                <div class="form-group">
+                                                    <input value="<%= bike.iva%>" type="number" class="form-control" name="iva" required>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <% if(typeof(errors) != 'undefined' && errors.gross){%>
+                                                    <div class="text-danger text-center">
+                                                      <%= errors.gross.msg %>
+                                                    </div>
+                                                <%}%>
+                                                <h6>Bruto</h6>
+                                                <div class="form-group">
+                                                    <input value="<%= bike.gross%>" type="number" class="form-control" name="gross" required>
+                                                </div>
+                                            </div>                                                       
+                                        </div>
+                                        <hr>                                  
+                                    </div>
+                                </div>                           
+                            </div>
+                        <div clas="container-fluid">
+                                <div class="paso2 row">
+                                    <!-- imagen portada -->
+                        <div class="col-12 col-md-6 col-lg-12 d-lg-flex justify-content-lg-center">
+                                        <% bike.image.forEach(image => { %>
+                                            <% if (image.coverImage == 1) { %>
+                                            <figure class="figure-portada">
+                                                <h4>Imagen de la portada</h4>
+                                                <img class="w-100 border-1 p-1 preview-img" src="/asset/img/productos/<%= image.name%>" alt="<%=bike.model %> "> 
+                                                <% if(typeof(errors) != 'undefined' && errors.imagenPortada){%>
+                                                    <div class="text-danger text-center">
+                                                        <%= errors.imagenPortada.msg %>
+                                                    </div>
+                                                    <%}%>
+                                                    <div class="text-danger" id="error-imagePortada"></div>    
+                                                <input type="hidden" name="oldImagenPortada"  value="<%= image.name%>">
+                                                <input type="file" name="imagenPortada" class="botonImg">
+                                            </figure>
+                                            <% } %>
+                                        <% }) %>
+                                    </div>
+                                    <% imagesNoCover.forEach(image => { %>
+                                        <figure class=" col-12 col-md-6 col-lg-3 foto ">
+                                            <img class="w-100 border-1 p-1 preview-img" src="/asset/img/productos/<%= image.name%>" alt="<%=bike.model%>">
+                                            <div class="text-danger error-image-div"></div>
+                                            <input type="hidden" name="oldImagen<%= numOld += 1 %>"  value="<%= image.name%>">
+                                            <input type="file" name="imagen<%= numInput += 1 %>" class="botonImg" >
+                                        </figure>
+                                    <% }) %> 
+                                    <div class="col-12">                                                
+                                        <div class="custom--file">
+                                            <div class="texta col-12 w-100">
+                                                <% if(typeof(errors) != 'undefined' && errors.description){%>
+                                                    <div class="text-danger text-center">
+                                                        <%= errors.description.msg %>
+                                                    </div>
+                                                    <%}%>
+                                                <p><label for="description">Descripción</label></p> 
+                                                <div id="description-Errors" class="text-danger"></div>
+                                                <textarea name="description" id="descripcion" cols="35" rows="8"><%= bike.description%></textarea>
+                                                <% if(typeof(errors) != 'undefined' && errors.specification){%>
+                                                    <div class="text-danger text-center">
+                                                        <%= errors.specification.msg %>
+                                                    </div>
+                                                    <%}%>
+                                                <p><label for="specification">Especificaciones</label></p> 
+                                                <div id="specification-Errors" class="text-danger"></div>
+                                                <textarea name="specification" id="especificaciones" cols="35" rows="8"><%= bike.specification%></textarea>
+                                            </div> 
+                                            <div class="form-group guardar">
+                                                <a href="/administrar" class="btm btn-primary">Volver</a>
+                                                <button type="submit" class="btm">Guardar</button>
+                                            </div>
+                                        </div>
+                                    </div>                                                                  
+                                </div>
+                        </div>                        
+                    </form>    
+                </div>                      
+            </div>              
+        </section>        
+        <!--Footer-->
+        <%- include('../partials/footer') %>
+    </section> 
+                            
+    <!--Script de boostrap-->
+    <%- include('../partials/scripts') %>
+    <script src="/js/imagesPreview.js"></script>
+    <script src="/js/productEdit.js"></script> 
+</body>
+                        
+</html>

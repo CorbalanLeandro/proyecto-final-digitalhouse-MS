@@ -1,0 +1,46 @@
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div>
+                    <ul id="errors"></ul>
+                </div>
+             <!-- <% if (typeof(errorsLogin)!='undefined'){ %> 
+                 <ul class="alert alert-danger ">
+                     <% errorsLogin.forEach(error =>{ %>
+                         <li><%= error.msg %> </li>
+                     <%})%> 
+                 </ul>            
+             <% } %>  -->
+                <div class="div-form d-flex flex-column align-items-center" id="div-form">
+                    <form action="/login" method="POST" class="loginModal">
+                        <div class="text-center"><label for="email">Email</label>
+                            <% if(typeof(errorsLogin) != 'undefined' && errorsLogin.email){%>
+                                <div class="text-danger text-center">
+                                  <%= errorsLogin.email.msg %>
+                                </div>
+                            <%}%>
+                        </div>                        
+                        <div class="text-center"><input class="rounded-pill border-0 mb-2 text-center" type="email" name="email" id="user-input" ></div>
+                        <div class="text-center"><label for="password">Contraseña</label>
+                            <% if(typeof(errorsLogin) != 'undefined' && errorsLogin.password){%>
+                                <div class="text-danger text-center">
+                                  <%= errorsLogin.password.msg %>
+                                </div>
+                             <%}%>
+                        </div>
+                        <div class="text-center"><input class="rounded-pill border-0 mb-2 text-center" type="password" name="password" id="password-input"></div>
+                        <div class="text-center mt-2"><input class="mr-2" type="checkbox" name="rememberme" id="rememberme"><label for="rememberme"> Recordame</label> </div>
+                        <div class="text-center mt-2"><button class="modal-login-button rounded-pill border-0" type="submit">Iniciar sesión</button></div>
+                        <div class="text-center mt-3"><a class="modal-login-button rounded-pill" href="/register">Creá tu usuario</a></div>
+                        <!--<div class="text-center mt-3"><a href="/passwordRecovery">Olvidé mi contraseña</a></div> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/loginModal.js"></script>
